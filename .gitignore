@@ -1,0 +1,89 @@
+# Yocto Build System .gitignore
+
+# Build directories
+build/
+tmp/
+sstate-cache/
+downloads/
+cache/
+sources/
+
+
+# Yocto build artifacts
+*.rootfs.*
+*.ext4
+*.wic*
+*.tar.bz2
+*.tar.gz
+*.manifest
+*.testdata.json
+*.qemuboot.conf
+
+# BitBake specific files
+.bitbake/
+bitbake.lock
+bitbake.sock
+bitbake-cookerdaemon.log
+hashserv.sock
+
+# Deployment images (usually large files)
+deploy/
+
+# Work directories
+work/
+work-shared/
+
+# Package feeds
+package-index/
+ipk/
+rpm/
+deb/
+
+# SDK related
+sdk/
+toolchain/
+
+# Logs and temporary files
+log.*
+*.log
+*.pyc
+__pycache__/
+.Python
+*.so
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Python virtual environments
+venv/
+env/
+.env
+
+# Git submodules (if any)
+.gitmodules
+
+# Configuration backups
+*.conf.bak
+*.conf.orig
+local.conf.sample*
+bblayers.conf.sample*
+
+# Source archives in meta layers (optional - comment out if you want to track them)
+# *.tar.gz
+# *.tar.bz2
+# *.tar.xz
+# *.zip
+
+# Specific to this project
+# Uncomment if you don't want to track the bootgen source archive
+# meta-bootgen/recipes-devtools/bootgen/files/*.tar.gz
+
+# OS specific files
+.nfs*
+
