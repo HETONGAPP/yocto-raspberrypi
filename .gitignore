@@ -82,7 +82,7 @@ bblayers.conf.sample*
 
 # Specific to this project
 # Uncomment if you don't want to track the bootgen source archive
-# meta-bootgen/recipes-devtools/bootgen/files/*.tar.gz
+!meta-bootgen/recipes-devtools/bootgen/files/bootgen-2019.2.tar.gz
 
 # OS specific files
 .nfs*

@@ -136,13 +136,27 @@ setup-build:
 		bash -c "source $(SOURCES_DIR)/poky/oe-init-build-env $(BUILD_DIR)"; \
 	fi
 	
-	# Check if configuration files exist
-	@if [ ! -f "$(BUILD_DIR)/conf/local.conf" ] || [ ! -f "$(BUILD_DIR)/conf/bblayers.conf" ]; then \
-		echo "$(RED)Error: Build configuration files do not exist!$(NC)"; \
-		echo "$(YELLOW)Please manually run: source sources/poky/oe-init-build-env build$(NC)"; \
-		exit 1; \
+	# Copy and configure template files
+	@echo "$(YELLOW)🔄 Applying template configurations...$(NC)"
+
+	# Copy and configure local.conf
+	@if [ -f "template/local.conf.template" ]; then \
+		echo "$(BLUE)📝 Configuring local.conf...$(NC)"; \
+		cp "template/local.conf.template" "$(BUILD_DIR)/conf/local.conf"; \
+		echo "$(GREEN)✅ local.conf copied from template$(NC)"; \
+	else \
+		echo "$(YELLOW)⚠️  template/local.conf.template not found$(NC)"; \
 	fi
-	
+
+	# Copy and configure bblayers.conf with path replacement
+	@if [ -f "template/bblayers.conf.template" ]; then \
+		echo "$(BLUE)📝 Configuring bblayers.conf...$(NC)"; \
+		sed "s|@@PROJECT_ROOT@@|$(shell pwd | sed 's|/build$$||')|g" "template/bblayers.conf.template" > "$(BUILD_DIR)/conf/bblayers.conf"; \
+		echo "$(GREEN)✅ bblayers.conf copied and paths updated$(NC)"; \
+	else \
+		echo "$(YELLOW)⚠️  template/bblayers.conf.template not found$(NC)"; \
+	fi
+
 	@echo "$(GREEN)Build environment configuration completed!$(NC)"
 
 build: check-sources

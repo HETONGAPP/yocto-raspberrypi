@@ -31,21 +31,57 @@ sudo apt-get install -y \
 
 ## 🚀 Quick Start
 
-### Automated Build (Recommended)
+### ⚡ One-Time Setup (Required)
 ```bash
-# Clone project
-git clone <your-repo-url> yocto-raspberrypi
-cd yocto-raspberrypi
+# 1.Clone project
+git clone https://github.com/HETONGAPP/yocto-raspberrypi.git
 
+# 2. Install system dependencies (requires sudo, do this once only)
+cd yocto-raspberrypi
+make install-deps
+```
+
+### 🔄 Automated Build (Recommended)
+```bash
 # Use Makefile for automated build
-make setup          # Initialize environment
+make setup          # Initialize environment and auto-configure
 make build          # Build base image
-make build-custom   # Build custom image
+make build-custom   # Build custom image with bootgen
 make test           # Test in QEMU
 
-# Or complete all steps at once
-make all
+# Or complete build workflow at once (after setup)
+make all            # check-deps + setup + build + test
 ```
+
+### 📋 Available Commands
+```bash
+# System Setup (one-time only)
+make install-deps   # Install system dependencies (requires sudo)
+make check-deps     # Check if dependencies are installed
+
+# Build Workflow
+make setup          # Clone sources + auto-configure build environment
+make build          # Build base image (core-image-minimal)
+make build-custom   # Build custom image with bootgen tool
+make build-rpi      # Build Raspberry Pi 4 specific image
+make test           # Test image in QEMU virtual machine
+
+# Combined Commands
+make all           # Complete workflow: check-deps + setup + build + test
+
+# Utilities
+make status        # Show project status
+make clean         # Clean build files
+make clean-all     # Clean everything (sources + build)
+```
+
+### ⚠️ **Important Notes**
+
+- **`make install-deps`** requires `sudo` and modifies your system
+- **`make all`** = `make check-deps` + `make setup` + `make build` + `make test`
+- **`make setup`** includes automatic configuration of build environment
+- First-time users: Run `make install-deps` before anything else
+- All build artifacts are stored in `build/` directory (excluded from git)
 
 ### Manual Build
 ```bash
